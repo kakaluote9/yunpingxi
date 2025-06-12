@@ -592,6 +592,27 @@
             animation-duration: 1s;
             animation-fill-mode: both;
         }
+		  /* 新增Logo样式优化 */
+        .logo img {
+            height: 60px;
+            margin-right: 12px;
+            transition: var(--transition);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* 添加柔和阴影 */
+        }
+        
+        /* 响应式调整Logo大小 */
+        @media (max-width: 768px) {
+            .logo img {
+                height: 50px;
+                margin-right: 8px;
+            }
+        }
+        
+        /* 悬停效果增强品牌互动 */
+        .logo img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -599,7 +620,11 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                
+                <!-- 添加Logo图片 -->
+				<img src="images/logo.png" alt="云曦平科技Logo">
+                <a href="#home">
+                    
+                </a>
                 <span>合肥云曦平信息科技</span>
             </div>
             <nav>
@@ -813,15 +838,18 @@
     </footer>
 
     <script>
-        // 滚动时导航栏效果
+     
+		// 滚动时导航栏效果 - 更新Logo大小调整
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
+            const logoImg = document.querySelector('.logo img');
+            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
-                document.querySelector('.logo img').style.height = '50px';
+                logoImg.style.height = '90px'; // 滚动时缩小Logo
             } else {
                 header.classList.remove('scrolled');
-                document.querySelector('.logo img').style.height = '60px';
+                logoImg.style.height = '120px'; // 恢复Logo大小
             }
         });
         
