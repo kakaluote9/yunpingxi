@@ -3,16 +3,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合肥云曦平信息科技有限责任公司 - 专业软件开发服务</title>
-    <link rel="stylesheet" href="style.css">
+    <title>合肥云曦平信息科技有限责任公司 - 创新软件解决方案</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 更新全局样式 */
+        :root {
+            --primary: #2c3e50;   /* 主品牌色 */
+            --secondary: #3498db; /* 强调色 */
+            --accent: #1abc9c;   /* 新增强调色 */
+            --light: #f5f7fa;     /* 背景浅色 */
+            --dark: #1a252f;      /* 深色背景 */
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 更新导航栏 */
+        header {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 12px;
+            transition: var(--transition);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin-left: 35px;
+            position: relative;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 更新横幅区域 */
+        .banner {
+            background: linear-gradient(135deg, rgba(44,62,80,0.92) 0%, rgba(26,37,47,0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover;
+            height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+        
+        .banner-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .banner p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        /* 按钮样式更新 */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 14px 38px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.35);
+        }
+        
+        .btn:hover {
+            background: #16a085;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.45);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* 内容区块更新 */
+        .section {
+            padding: 120px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .bg-light {
+            background: var(--light);
+        }
+        
+        /* 服务网格更新 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .service-item {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+        
+        .service-item:hover .service-icon {
+            transform: scale(1.1);
+        }
+        
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .service-item p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* 案例展示更新 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .project {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .project-img {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project:hover .project-img img {
+            transform: scale(1.05);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .project p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .tech-tag {
+            background: rgba(26, 188, 156, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* 联系方式更新 */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        
+        .contact-text h4 {
+            margin: 0 0 5px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .contact-text p {
+            margin: 0;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 页脚更新 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #999;
+            font-size: 1rem;
+        }
+        
+        /* 响应式设计更新 */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px 10px;
+            }
+            
+            .banner {
+                padding-top: 140px;
+            }
+            
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                margin: 5px 0;
+                width: 100%;
+            }
+            
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .banner p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+    </style>
 </head>
 <body>
     <!-- 顶部导航 -->
     <header>
-        <div class="container">
+        <div class="container header-container">
             <div class="logo">
-                <img src="images/logo.png" alt="云平曦Logo">
-                <span>合肥云曦平信息科技有限责任公司</span>
+                
+                <span>合肥云曦平信息科技</span>
             </div>
             <nav>
                 <ul>
@@ -29,28 +617,45 @@
     <!-- 横幅展示 -->
     <section id="home" class="banner">
         <div class="container">
-            <h1>创新软件解决方案</h1>
-            <p>为企业提供定制化软件开发、云计算服务与数字化转型方案</p>
-            <a href="#contact" class="btn">获取方案咨询</a>
+            <div class="banner-content animated">
+                <h1>创新软件解决方案</h1>
+                <p>为企业提供定制化软件开发、云计算服务与数字化转型方案</p>
+                <div class="btn-container">
+                    <a href="#contact" class="btn">获取方案咨询</a>
+                    <a href="#services" class="btn btn-secondary">查看服务</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 服务板块 -->
     <section id="services" class="section">
         <div class="container">
-            <h2>核心服务</h2>
+            <div class="section-title">
+                <h2>核心服务</h2>
+                <p>我们提供专业的软件技术服务，助力企业实现数字化转型</p>
+            </div>
             <div class="services-grid">
                 <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
                     <h3>企业定制开发</h3>
-                    <p>根据业务需求构建专属ERP、CRM等管理系统</p>
+                    <p>根据业务需求构建专属ERP、CRM等管理系统，满足企业个性化需求</p>
                 </div>
                 <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
                     <h3>SaaS云平台</h3>
-                    <p>提供可扩展的云端软件服务解决方案</p>
+                    <p>提供可扩展的云端软件服务解决方案，支持弹性扩展和高可用性</p>
                 </div>
                 <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
                     <h3>移动应用开发</h3>
-                    <p>iOS/Android跨平台应用开发与优化</p>
+                    <p>iOS/Android跨平台应用开发与优化，提供卓越的用户体验</p>
                 </div>
             </div>
         </div>
@@ -59,14 +664,39 @@
     <!-- 案例展示 -->
     <section id="projects" class="section bg-light">
         <div class="container">
-            <h2>成功案例</h2>
-            <div class="project">
-                <h3>智慧医疗管理系统</h3>
-                <p>为三甲医院开发的综合管理平台，提升运营效率40%</p>
+            <div class="section-title">
+                <h2>成功案例</h2>
+                <p>我们为各行业客户提供了创新的解决方案</p>
             </div>
-            <div class="project">
-                <h3>电商供应链系统</h3>
-                <p>支持日处理百万订单的分布式架构系统</p>
+            <div class="projects-grid">
+                <div class="project">
+                    <div class="project-img">
+                        
+                    </div>
+                    <div class="project-content">
+                        <h3>智慧医疗管理系统</h3>
+                        <p>为三甲医院开发的综合管理平台，提升运营效率40%，优化患者就诊流程</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Vue.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-img">
+                        
+                    </div>
+                    <div class="project-content">
+                        <h3>电商供应链系统</h3>
+                        <p>支持日处理百万订单的分布式架构系统，实现库存精准管理和物流优化</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">微服务</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -74,11 +704,59 @@
     <!-- 联系方式 -->
     <section id="contact" class="section">
         <div class="container">
-            <h2>联系我们</h2>
-            <div class="contact-info">
-                <p>邮箱：contact@yunpingxi.com</p>
-                <p>电话：400-888-9999</p>
-                <p>地址：合肥市蜀山区666号</p>
+            <div class="section-title">
+                <h2>联系我们</h2>
+                <p>我们期待为您提供专业的解决方案</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>邮箱</h4>
+                            <p>contact@yunpingxi.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>电话</h4>
+                            <p>400-888-9999</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>地址</h4>
+                            <p>合肥市蜀山区666号科技创新大厦15层</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>发送咨询</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" placeholder="您的姓名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" placeholder="您的邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言</label>
+                            <textarea id="message" placeholder="请描述您的需求"></textarea>
+                        </div>
+                        <button type="submit" class="btn">发送咨询</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -86,8 +764,80 @@
     <!-- 页脚 -->
     <footer>
         <div class="container">
-            <p>© 2025 云曦平科技 </p>
+            <div class="footer-container">
+                <div class="footer-col">
+                    <div class="logo">
+                        
+                    </div>
+                    <p>合肥云曦平信息科技有限责任公司致力于为企业提供专业的软件开发服务和数字化转型解决方案。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>服务项目</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">企业定制开发</a></li>
+                        <li><a href="#services">SaaS云平台</a></li>
+                        <li><a href="#services">移动应用开发</a></li>
+                        <li><a href="#services">系统集成</a></li>
+                        <li><a href="#services">IT咨询服务</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#services">服务</a></li>
+                        <li><a href="#projects">案例</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>订阅资讯</h4>
+                    <p>订阅我们的邮件，获取最新技术资讯和行业动态</p>
+                    <div class="form-group">
+                        <input type="email" placeholder="您的邮箱地址">
+                    </div>
+                    <button class="btn" style="width: 100%">订阅</button>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 合肥云曦平信息科技有限责任公司 | 皖ICP备XXXXXXX号</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // 滚动时导航栏效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+                document.querySelector('.logo img').style.height = '50px';
+            } else {
+                header.classList.remove('scrolled');
+                document.querySelector('.logo img').style.height = '60px';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
